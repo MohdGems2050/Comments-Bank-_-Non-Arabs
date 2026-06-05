@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Comment Bank — Arabic as a Foreign Language | By Mr Mohamed Roshdi</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg2: #f5f5f7;
+    --bg3: #ebebed;
+    --text: #1a1a1a;
+    --text2: #555;
+    --text3: #888;
+    --border: #ddd;
+    --border2: #e8e8e8;
+    --radius: 10px;
+    --radius-sm: 6px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg2); color: var(--text); min-height: 100vh; }
+
+  /* TOP BAR */
+  .topbar { background: #1a1a2e; color: #fff; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .topbar-left { display: flex; align-items: center; gap: 10px; }
+  .topbar-logo { width: 32px; height: 32px; background: linear-gradient(135deg,#378ADD,#1a6fbb); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; color: #fff; flex-shrink: 0; }
+  .topbar-title { font-size: 14px; font-weight: 600; color: #fff; }
+  .topbar-sub { font-size: 11px; color: #aab; margin-top: 1px; }
+  .topbar-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+  .badge { font-size: 10.5px; padding: 3px 9px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); color: #ccd; }
+
+  /* MAIN */
+  .main { max-width: 860px; margin: 0 auto; padding: 24px 16px 60px; }
+
+  /* HEADER CARD */
+  .header-card { background: var(--bg); border-radius: var(--radius); padding: 20px 24px; margin-bottom: 20px; box-shadow: var(--shadow); border-left: 4px solid #378ADD; }
+  .header-card h1 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .header-card h1 span { color: #378ADD; }
+  .header-card p { font-size: 12.5px; color: var(--text2); line-height: 1.6; }
+  .header-card .author { margin-top: 10px; font-size: 12px; color: var(--text3); display: flex; gap: 8px; flex-wrap: wrap; }
+  .header-card .author span { background: var(--bg2); border: 1px solid var(--border2); border-radius: 20px; padding: 2px 10px; }
+
+  /* FORMAT NOTE */
+  .fmt { background: #fffbea; border: 1px solid #f0e080; border-radius: var(--radius-sm); padding: 10px 14px; font-size: 12px; color: #7a6500; margin-bottom: 20px; line-height: 1.6; }
+
+  /* LEVEL TABS */
+  .level-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .ltb { padding: 8px 20px; border-radius: var(--radius-sm); border: 2px solid transparent; background: var(--bg); cursor: pointer; font-size: 13px; font-weight: 500; color: var(--text2); transition: all 0.15s; box-shadow: var(--shadow); }
+  .ltb:hover { transform: translateY(-1px); }
+  .ltb.w { border-color: #F09595; }  .ltb.w.active { background: #FCEBEB; border-color: #E24B4A; color: #A32D2D; }
+  .ltb.ac { border-color: #ED93B1; } .ltb.ac.active { background: #FBEAF0; border-color: #D4537E; color: #72243E; }
+  .ltb.m { border-color: #97C459; }  .ltb.m.active { background: #EAF3DE; border-color: #639922; color: #3B6D11; }
+  .ltb.ab { border-color: #85B7EB; } .ltb.ab.active { background: #E6F1FB; border-color: #378ADD; color: #185FA5; }
+
+  /* LEVEL FRAME */
+  .level-frame { border-radius: var(--radius); padding: 20px; border: 2px solid transparent; transition: all 0.2s; }
+  .lf-weak       { border-color: #E24B4A; background: #FCEBEB; }
+  .lf-acceptable { border-color: #D4537E; background: #FBEAF0; }
+  .lf-meeting    { border-color: #639922; background: #EAF3DE; }
+  .lf-above      { border-color: #378ADD; background: #E6F1FB; }
+
+  /* PATTERN TABS */
+  .pat-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+  .ptb { padding: 6px 14px; border-radius: var(--radius-sm); border: 2px solid transparent; cursor: pointer; font-size: 12px; font-weight: 500; background: #fff; transition: all 0.15s; }
+  .ptb:hover { opacity: 0.85; }
+
+  /* CARD */
+  .card { background: #fff; border-radius: var(--radius); padding: 20px; border: 2px solid transparent; box-shadow: var(--shadow); }
+  .pat-label { display: inline-block; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; color: #fff; margin-bottom: 16px; letter-spacing: 0.03em; }
+  .sec-label { font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text3); margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
+  .pt { font-size: 13px; color: var(--text2); line-height: 1.65; padding: 9px 12px; border-radius: var(--radius-sm); background: var(--bg2); margin-bottom: 5px; cursor: pointer; border-left: 3px solid transparent; transition: all 0.15s; }
+  .pt:hover { background: var(--bg3); transform: translateX(2px); }
+  .pt.s { border-left-color: #639922; }
+  .pt.d { border-left-color: #EF9F27; }
+  .pt-hint { font-size: 10px; color: var(--text3); margin-bottom: 6px; }
+  .divider { height: 1px; background: var(--border2); margin: 16px 0; }
+  .sec-copy { width: 100%; padding: 7px; font-size: 12px; cursor: pointer; border-radius: var(--radius-sm); border: 1px solid var(--border); background: transparent; color: var(--text2); margin-top: 8px; transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .sec-copy:hover { background: var(--bg2); color: var(--text); }
+  .full-copy { width: 100%; padding: 9px; font-size: 13px; font-weight: 600; cursor: pointer; border-radius: var(--radius-sm); border: 1px solid var(--border); background: transparent; color: var(--text); margin-top: 12px; transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .full-copy:hover { background: var(--bg2); }
+
+  /* TOAST */
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #1a1a2e; color: #fff; font-size: 13px; padding: 9px 20px; border-radius: 30px; opacity: 0; transition: opacity 0.2s; pointer-events: none; z-index: 999; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+  .toast.show { opacity: 1; }
+
+  /* FOOTER */
+  .footer { text-align: center; font-size: 11px; color: var(--text3); padding: 24px 16px 12px; }
+
+  @media (max-width: 600px) {
+    .topbar { padding: 12px 16px; }
+    .main { padding: 16px 12px 60px; }
+    .header-card { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-logo">AFL</div>
+    <div>
+      <div class="topbar-title">Comment Bank — Arabic as a Foreign Language</div>
+      <div class="topbar-sub">By Mr Mohamed Roshdi</div>
+    </div>
+  </div>
+  <div class="topbar-badges">
+    <span class="badge">MangeBac</span>
+    <span class="badge">iSAMS</span>
+    <span class="badge">AFL</span>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="header-card">
+    <h1>Comment Bank For MangeBac and iSAMS &nbsp;·&nbsp; <span>Arabic as a Foreign Language</span></h1>
+    <p>تعليقات مصاغة وفق معايير تقييم اللغة الثانية (AFL) · مناسبة للمقيّم التربوي المتخصص<br>
+    اضغط على أي جملة لنسخها مباشرة · أو استخدم أزرار النسخ السريع</p>
+    <div class="author">
+      <span>✦ By Mr Mohamed Roshdi</span>
+      <span>MangeBac · iSAMS</span>
+      <span>AFL — Arabic as a Foreign Language</span>
+    </div>
+  </div>
+
+  <div class="fmt">
+    <strong>تنسيق MangeBac / iSAMS:</strong> &nbsp;– نقطة · مسافة · الوصف · بدون نقطة نهاية · أول كلمة كبيرة · النسخ مباشرة بدون عنوان القسم
+  </div>
+
+  <div class="level-tabs">
+    <button class="ltb w active" onclick="showLevel('weak')">Weak</button>
+    <button class="ltb ac" onclick="showLevel('acceptable')">Acceptable</button>
+    <button class="ltb m" onclick="showLevel('meeting')">Meeting</button>
+    <button class="ltb ab" onclick="showLevel('above')">Above</button>
+  </div>
+
+  <div id="level-wrap" class="level-frame lf-weak">
+    <div class="pat-tabs" id="ptabs"></div>
+    <div id="area"></div>
+  </div>
+
+</div>
+
+<div class="footer">Comment Bank · Arabic as a Foreign Language · By Mr Mohamed Roshdi · MangeBac &amp; iSAMS</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const LS = {
+  weak:       { frame:'lf-weak',       pc:['#E24B4A','#C0392B','#A32D2D','#D85A30','#8B1A1A'], pb:['#FCEBEB','#FFF0F0','#FCDADA','#FAECE7','#F7CFCF'] },
+  acceptable: { frame:'lf-acceptable', pc:['#D4537E','#B83D65','#993556','#E07090','#72243E'], pb:['#FBEAF0','#FDF0F5','#F9DDE9','#FDE8F2','#F4C0D1'] },
+  meeting:    { frame:'lf-meeting',    pc:['#4E8A1A','#639922','#3B6D11','#78B02A','#27500A'], pb:['#EAF3DE','#F0F8E4','#DCEECE','#E4F2D4','#D0E8BC'] },
+  above:      { frame:'lf-above',      pc:['#1A6FBB','#378ADD','#185FA5','#4A99E8','#0C447C'], pb:['#E6F1FB','#EEF5FD','#D4E8F8','#DCF0FF','#B5D4F4'] }
+};
+
+const D = {
+  weak: { patterns: [
+    { label:'Pattern 1',
+      s:['Demonstrates emerging recognition of high-frequency vocabulary and familiar formulaic expressions in structured listening tasks',
+         'Attempts to convey basic meaning through isolated words and memorised chunks with teacher scaffolding',
+         'Shows developing letter–sound awareness and is beginning to trace and copy Arabic script with growing consistency'],
+      d:['Has difficulty processing connected speech at a natural pace and requires frequent repetition to access meaning',
+         'Is not yet able to produce spontaneous utterances beyond single words; oral output remains largely imitative',
+         'Decoding of short written texts is not yet secure; systematic phonics support is needed to develop basic reading fluency'] },
+    { label:'Pattern 2',
+      s:['Recognises and responds to familiar classroom commands and social expressions in highly structured contexts',
+         'Demonstrates a willingness to engage in supported speaking tasks and attempts communication despite limited linguistic resources',
+         'Is beginning to reproduce simple high-frequency words in writing with developing accuracy in letter formation'],
+      d:['Comprehension is limited to highly predictable input; texts or instructions containing unfamiliar vocabulary lead to significant breakdown',
+         'Spoken responses consist primarily of one-word answers and rehearsed phrases; sentence-level production has not yet emerged',
+         'Written output requires a visual model at all times; independent application of learned structures is not yet evident'] },
+    { label:'Pattern 3',
+      s:['Shows awareness of basic Arabic phonological patterns and can identify some individual sounds in familiar words',
+         'Participates in guided listening tasks and can match spoken words to images or classroom objects with support',
+         'Copies letter forms with growing attention to shape and directionality, demonstrating developing fine motor control in script production'],
+      d:['Is not yet able to sustain comprehension across a short connected text in either listening or reading modalities',
+         'Oral production lacks syntactic structure; responses do not yet demonstrate control of basic subject–verb patterns',
+         'Writing is confined to copying; generation of original written sentences has not yet been observed'] },
+    { label:'Pattern 4',
+      s:['Identifies isolated key words in slow, clearly articulated listening input and can signal basic comprehension non-verbally',
+         'Demonstrates growing familiarity with the Arabic alphabet and can recognise most letters in isolation',
+         'Shows positive engagement with language learning tasks and makes consistent effort in structured classroom activities'],
+      d:['Reading fluency is at a pre-emergent stage; sustained phonemic blending across consonant–vowel sequences requires further explicit instruction',
+         'Spoken interaction is highly dependent on teacher prompting; unprompted language production is rarely observed',
+         'Written work shows frequent letter-formation errors and inconsistent directionality; targeted handwriting support is recommended'] },
+    { label:'Pattern 5',
+      s:['Recognises a small set of high-frequency sight words in familiar reading contexts with growing automaticity',
+         'Engages with guided speaking frames and can produce short rehearsed utterances when provided with adequate preparation time',
+         'Demonstrates basic print awareness and is beginning to associate Arabic letters with their corresponding phonemes'],
+      d:['Listening comprehension is not yet functional beyond single words and familiar fixed expressions; extended spoken input is not accessible',
+         'Oral sentences are rarely complete; the learner has not yet developed consistent control of basic morphosyntactic patterns in Arabic',
+         'Independent writing has not yet been achieved; structured guided frames and explicit modelling remain necessary at all stages of production'] }
+  ]},
+  acceptable: { patterns: [
+    { label:'Pattern 1',
+      s:['Understands simple questions and routine instructions delivered in clear, measured speech across familiar topic areas',
+         'Reads short familiar texts and demonstrates literal comprehension through accurate responses to direct questions',
+         'Produces short written sentences using learned vocabulary and basic syntactic patterns with developing accuracy'],
+      d:['Comprehension of spoken input breaks down when vocabulary extends beyond familiar topics or delivery pace increases',
+         'Reading fluency is still developing; the learner relies on word-by-word decoding and has limited access to meaning beyond the literal level',
+         'Written output contains recurring spelling errors and inconsistencies in basic sentence structure that affect overall communicative effectiveness'] },
+    { label:'Pattern 2',
+      s:['Responds to familiar questions in short, intelligible sentences using a limited but functional range of vocabulary',
+         'Identifies key words and main ideas in short listening and reading texts on predictable, familiar topics',
+         'Demonstrates growing control of basic punctuation conventions and applies correct directionality in written work'],
+      d:['Spoken responses lack elaboration; the learner is not yet able to extend ideas beyond minimal answers without significant teacher support',
+         'Inferential comprehension is not yet accessible; the learner relies on explicit textual cues to locate information',
+         'Written sentences remain simple and linear; ideas are underdeveloped and organisational coherence is limited'] },
+    { label:'Pattern 3',
+      s:['Demonstrates functional comprehension of familiar classroom language in listening contexts and responds appropriately',
+         'Answers simple literal comprehension questions after reading short texts on familiar topics with adequate accuracy',
+         'Shows developing awareness of basic Arabic sentence structure and applies it in guided written production tasks'],
+      d:['Lexical range restricts the learner\'s ability to expand spoken and written responses beyond basic communicative needs',
+         'Productive skills in both speaking and writing lack the syntactic variety and cohesive devices needed for organised discourse',
+         'Written production is heavily model-dependent; the learner has not yet demonstrated the ability to generate novel sentences independently'] },
+    { label:'Pattern 4',
+      s:['Is beginning to use basic cohesive devices such as و and لكن to connect ideas in spoken and written contexts',
+         'Recognises frequently used vocabulary in short texts and uses context to support understanding of unfamiliar items',
+         'Writes familiar words and short sentences with developing orthographic accuracy and growing independence'],
+      d:['Spoken fluency is inconsistent; the learner frequently hesitates and relies on code-switching to sustain interaction',
+         'Listening comprehension of new lexical items or slightly extended texts requires repeated exposure before meaning is accessed',
+         'Written accuracy is undermined by common morphological and spelling errors that recur across task types'] },
+    { label:'Pattern 5',
+      s:['Participates in structured speaking exchanges using short sentences and demonstrates growing communicative confidence',
+         'Reads short texts and identifies the main topic with basic accuracy, demonstrating developing reading comprehension',
+         'Shows awareness of key Arabic writing conventions including correct letter connections and basic diacritic usage'],
+      d:['Requires additional scaffolding to identify key information from listening input without the support of repetition or visual aids',
+         'Reading rate is slow and comprehension is largely confined to texts within highly familiar lexical and thematic boundaries',
+         'Written production lacks variety in sentence structure and vocabulary; explicit modelling of varied syntactic patterns is recommended'] }
+  ]},
+  meeting: { patterns: [
+    { label:'Pattern 1',
+      s:['Demonstrates consistent comprehension of main ideas and key details in short spoken and written texts on familiar topics',
+         'Communicates with reasonable clarity and fluency in spoken interactions, using a functional range of vocabulary and basic cohesive devices',
+         'Produces organised short paragraphs in which ideas are logically sequenced and basic grammatical structures are applied with general accuracy'],
+      d:['Comprehension becomes inconsistent when listening or reading texts contain unfamiliar lexical items or more complex discourse structures',
+         'Spoken production would benefit from a wider range of sentence structures and greater use of elaboration strategies beyond minimal responses',
+         'Written work shows limited lexical variety; expanding vocabulary range and applying more complex grammatical patterns would enhance overall quality'] },
+    { label:'Pattern 2',
+      s:['Follows multi-step instructions in listening contexts and identifies key information from moderately extended familiar texts',
+         'Expresses ideas and opinions in speech with adequate clarity, using a developing range of vocabulary appropriate to the task',
+         'Applies learned grammatical structures in writing with general consistency and demonstrates growing control of text organisation'],
+      d:['Inferential and critical reading skills require further development; the learner is not yet reliably able to draw conclusions beyond literal meaning',
+         'Spoken elaboration and the ability to justify opinions using supporting evidence need continued and systematic practice',
+         'Written work would benefit from greater use of varied cohesive devices and more precise vocabulary to enhance coherence and register'] },
+    { label:'Pattern 3',
+      s:['Reads short paragraphs with adequate accuracy and demonstrates sound comprehension of both main ideas and supporting details',
+         'Demonstrates growing confidence in spoken interaction and uses pronunciation that is generally clear and intelligible',
+         'Selects vocabulary appropriate to the communicative task and uses it consistently across both spoken and written modes'],
+      d:['Reading pace and depth of comprehension beyond the literal level require further development to meet grade-level expectations fully',
+         'Extended spoken responses would benefit from greater syntactic variety and more sustained use of complex sentence structures',
+         'The ability to plan, draft, and independently revise written work needs to be further developed to support autonomous production'] },
+    { label:'Pattern 4',
+      s:['Uses contextual information effectively to infer the meaning of unfamiliar vocabulary in both listening and reading tasks',
+         'Produces structured spoken responses with developing detail, demonstrating the ability to maintain a topic across several turns',
+         'Writes short texts with clear organisational structure and applies cohesive devices effectively to link ideas across sentences'],
+      d:['Critical and inferential comprehension skills across both listening and reading modalities require further explicit development',
+         'Lexical range in spoken production is limited; expanding vocabulary breadth and depth would strengthen communicative effectiveness',
+         'Grammatical accuracy in writing is inconsistent, particularly in the application of complex morphological and syntactic structures'] },
+    { label:'Pattern 5',
+      s:['Demonstrates sound comprehension of short conversations and extracts key information from familiar listening texts with good reliability',
+         'Responds to spoken prompts in complete, grammatically accurate sentences using vocabulary appropriate to the communicative context',
+         'Produces written paragraphs with a clear central idea, adequate supporting detail, and developing control of paragraph structure'],
+      d:['Comprehension of implicit meaning and the ability to respond to higher-order questions in both listening and reading need further development',
+         'Spoken discourse would benefit from greater structural variety and more confident use of extended turn-taking in interactive contexts',
+         'Written production should demonstrate a wider range of sentence types and more precise lexical choices to reflect growing language proficiency'] }
+  ]},
+  above: { patterns: [
+    { label:'Pattern 1',
+      s:['Demonstrates strong and consistent comprehension of spoken Arabic across a range of registers, accurately identifying both explicit and implied meaning',
+         'Communicates with confidence and fluency, deploying a varied range of syntactic structures and cohesive devices to construct well-developed spoken responses',
+         'Produces written texts that are well-structured, lexically varied, and grammatically accurate, reflecting a high level of productive competence in Arabic'],
+      d:['Would benefit from extending critical analysis skills to evaluate the rhetorical strategies and stylistic choices of authors across a wider range of text types',
+         'More complex grammatical structures, including subordinate clauses and conditional forms, should be applied with greater consistency in extended spoken discourse',
+         'Written compositions would gain in quality from more deliberate attention to register variation and the strategic use of audience-appropriate language'] },
+    { label:'Pattern 2',
+      s:['Processes extended and varied listening and reading texts with strong inferential comprehension, consistently reading beyond the literal level',
+         'Adapts spoken language effectively to suit different audiences and communicative purposes, demonstrating sociolinguistic awareness alongside linguistic accuracy',
+         'Applies a diverse range of grammatical structures in written production with a high degree of accuracy and functional appropriateness'],
+      d:['Developing the ability to critically evaluate an author\'s perspective, purpose, and use of rhetorical devices across different genres would extend analytical depth',
+         'Spontaneous spoken responses would benefit from greater grammatical precision and a wider lexical range, particularly when engaging with abstract or complex topics',
+         'Systematic self-editing strategies should be strengthened to identify and eliminate recurring minor errors in morphology and syntax in written work'] },
+    { label:'Pattern 3',
+      s:['Consistently identifies implied meaning, authorial attitude, and discourse-level organisation in both spoken and written Arabic texts',
+         'Constructs extended, coherent spoken responses using a wide range of vocabulary and discourse markers to signal relationships between ideas',
+         'Applies complex sentence structures with general accuracy in written production, demonstrating clear organisational control and an effective authorial voice'],
+      d:['Comparative analysis of ideas and perspectives across multiple texts is an area for further development to strengthen critical literacy skills',
+         'Extended spoken discourse should reflect more consistent and deliberate use of varied grammatical forms to demonstrate full command of the target language',
+         'Broadening the range of text types and genres attempted in writing would further develop productive versatility and stylistic flexibility'] },
+    { label:'Pattern 4',
+      s:['Reads fluently and with strong comprehension, consistently supporting textual interpretations with relevant and precisely selected evidence',
+         'Engages confidently in extended spoken interactions, sustaining coherent discourse with clear pronunciation and effective communicative strategies',
+         'Produces well-organised written texts that demonstrate purposeful use of stylistic and rhetorical devices appropriate to the communicative task'],
+      d:['Further developing the ability to evaluate the effect of specific language choices on meaning and audience response would strengthen analytical writing skills',
+         'Constructing, sustaining, and defending complex arguments in spoken contexts is an area where further challenge and practice would be beneficial',
+         'Written work should reflect greater structural ambition, including more deliberate experimentation with complex sentence types and varied discourse patterns'] },
+    { label:'Pattern 5',
+      s:['Demonstrates a sophisticated and nuanced understanding of spoken and written Arabic across diverse topics, registers, and text types',
+         'Engages in extended spoken discourse with precision, deploying advanced vocabulary, idiomatic expression, and effective use of pragmatic strategies',
+         'Writes with strong structural coherence, a confident and consistent authorial voice, and a high degree of grammatical and orthographic accuracy'],
+      d:['Exposure to a broader range of spoken registers, including formal and semi-formal varieties, would further develop listening adaptability and sociolinguistic competence',
+         'Analytical and evaluative language in both speaking and writing can be further refined to reflect greater critical depth and rhetorical sophistication',
+         'Developing greater precision in adapting tone, register, and textual conventions for different audiences and purposes would strengthen overall communicative range'] }
+  ]}
+};
+
+let curLevel='weak', curPat=0;
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),1800);
+}
+
+function renderPatternTabs(){
+  const st=LS[curLevel];
+  document.getElementById('ptabs').innerHTML=D[curLevel].patterns.map((p,i)=>{
+    const active=i===curPat;
+    return `<button class="ptb" onclick="selectPat(${i})"
+      style="border-color:${st.pc[i]};background:${active?st.pb[i]:'#fff'};color:${active?st.pc[i]:'#666'}"
+    >${p.label}</button>`;
+  }).join('');
+}
+
+function renderPattern(){
+  const st=LS[curLevel];
+  const p=D[curLevel].patterns[curPat];
+  const col=st.pc[curPat];
+  const bg=st.pb[curPat];
+
+  const sLines=p.s.map(x=>'– '+x).join('\n');
+  const dLines=p.d.map(x=>'– '+x).join('\n');
+  const full=sLines+'\n\n'+dLines;
+
+  const sPts=p.s.map(x=>`<div class="pt s" data-text="– ${x}">– ${x}</div>`).join('');
+  const dPts=p.d.map(x=>`<div class="pt d" data-text="– ${x}">– ${x}</div>`).join('');
+
+  const area=document.getElementById('area');
+  area.innerHTML=`
+    <div class="card" style="border-color:${col};background:${bg};">
+      <span class="pat-label" style="background:${col};">${p.label}</span>
+      <div class="sec-label">⭐ Strengths</div>
+      <div class="pt-hint">اضغط على أي جملة لنسخها</div>
+      ${sPts}
+      <button class="sec-copy" id="btn-s">⧉ Copy strengths</button>
+      <div class="divider"></div>
+      <div class="sec-label">↑ Areas for development</div>
+      <div class="pt-hint">اضغط على أي جملة لنسخها</div>
+      ${dPts}
+      <button class="sec-copy" id="btn-d">⧉ Copy areas for development</button>
+      <button class="full-copy" id="btn-f">⎘ Copy full comment block</button>
+    </div>`;
+
+  area.querySelectorAll('.pt').forEach(el=>{
+    el.addEventListener('click',()=>{
+      navigator.clipboard.writeText(el.dataset.text).then(()=>showToast('Copied!'));
+    });
+  });
+  document.getElementById('btn-s').addEventListener('click',()=>{
+    navigator.clipboard.writeText(sLines).then(()=>showToast('Strengths copied!'));
+  });
+  document.getElementById('btn-d').addEventListener('click',()=>{
+    navigator.clipboard.writeText(dLines).then(()=>showToast('Areas for development copied!'));
+  });
+  document.getElementById('btn-f').addEventListener('click',()=>{
+    navigator.clipboard.writeText(full).then(()=>showToast('Full block copied!'));
+  });
+}
+
+function selectPat(i){ curPat=i; renderPatternTabs(); renderPattern(); }
+
+function showLevel(level){
+  curLevel=level; curPat=0;
+  document.querySelectorAll('.ltb').forEach(b=>b.classList.remove('active'));
+  const map={weak:'w',acceptable:'ac',meeting:'m',above:'ab'};
+  document.querySelector('.ltb.'+map[level]).classList.add('active');
+  document.getElementById('level-wrap').className='level-frame '+LS[level].frame;
+  renderPatternTabs();
+  renderPattern();
+}
+
+showLevel('weak');
+</script>
+</body>
+</html>
